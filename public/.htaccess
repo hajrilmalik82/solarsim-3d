@@ -1,0 +1,20 @@
+# Konfigurasi Apache untuk React Router (SPA) di DirectAdmin / cPanel
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Jangan redirect jika file atau folder asli memang ada
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+
+  # Arahkan semua rute SPA (/panduan, /guide, /about, dll.) ke index.html
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# Cache aset statis agar loading lebih cepat
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType image/svg+xml "access plus 1 month"
+</IfModule>
